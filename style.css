@@ -1,0 +1,27 @@
+body {
+    margin: 0;
+}
+
+.main {
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+}
+
+.wastespace {
+    height: 40vh;
+}
+
+.counter {
+    text-align: center;
+    font-size: 10em;
+    font-family: 'Inter', sans-serif; /* Inter is a nice font, so use if available */
+}
+
+.incr {
+    width: 100vw;
+    border: none;
+    font-size: 6em;
+}
