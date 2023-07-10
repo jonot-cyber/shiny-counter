@@ -1,3 +1,19 @@
+// The limits of what pokemon are available in each game. Used to warn the user if they type a number too big
+const gameLimits = {
+    "au": 251,
+    "ag": 251,
+    "cr": 251,
+    "rs": 386,
+    "frlg": 386,
+    "em": 386,
+    "dp": 493,
+    "hgss": 493,
+    "pt": 493,
+    "bw": 649,
+    "xy": 721,
+    "oras": 721
+}
+
 const incrementButton = document.querySelector(".incr");
 const counter = document.querySelector(".counter");
 const sprite = document.querySelector(".sprite");
@@ -18,6 +34,10 @@ incrementButton.addEventListener("click", function() {
 settingsClose.addEventListener("click", function() {
     pokemon = pokemonChooser.value;
     let game = gameChooser.value;
+    if (pokemon > gameLimits[game]) {
+	alert("That Pokémon is not in that game!");
+	pokemon = 1;
+    }
     switch (game) {
     case "au": // Gold
 	sprite.src = `sprites/sprites/pokemon/versions/generation-ii/gold/shiny/${pokemon}.png`;
@@ -32,7 +52,13 @@ settingsClose.addEventListener("click", function() {
 	sprite.src = `sprites/sprites/pokemon/versions/generation-iii/ruby-sapphire/shiny/${pokemon}.png`;
 	break;
     case "frlg": // FireRed/LeafGreen
-	sprite.src = `sprites/sprites/pokemon/versions/generation-iii/firered-leafgreen/shiny/${pokemon}.png`;
+	// The sprites I'm using don't provide gen 2+3 sprites for firered/leafgreen, so use emerald as a fallback
+	// The reason this isn't in the game limits table is because those pokemon are present in the game.
+	if (pokemon > 151) {
+	    sprite = `sprites/sprites/pokemon/versions/generation-iii/emerald/shiny/${pokemon}.png`;
+	} else {
+	    sprite.src = `sprites/sprites/pokemon/versions/generation-iii/firered-leafgreen/shiny/${pokemon}.png`;
+	}
 	break;
     case "em": // Emerald
 	sprite.src = `sprites/sprites/pokemon/versions/generation-iii/emerald/shiny/${pokemon}.png`;
