@@ -27,7 +27,7 @@ body {
     width: 100vw;
     border: none;
     flex: 1;
-    font-size: 22vw;
+    font-size: 20vh;
 }
 
 .sprite-holder {
@@ -41,6 +41,12 @@ body {
     height: calc(96px*3);
     image-rendering: crisp-edges;
     filter: drop-shadow(3px 3px 3px #00005555);
+}
+
+@media (max-width: 1250px) {
+    .sprite {
+	height: calc(96px*2);
+    }
 }
 
 .settings {
