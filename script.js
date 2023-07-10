@@ -64,6 +64,8 @@ let shinyRate = 1/4096;
 
 incrementButton.addEventListener("click", function() {
     counter.innerText = ++count;
+    let prob = 1-Math.exp(count*Math.log(1-shinyRate));
+    document.querySelector(".probability-number").innerText = (100 * prob).toFixed(2);
 })
 
 settingsClose.addEventListener("click", function() {
