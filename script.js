@@ -24,9 +24,11 @@ const settingsClose = document.querySelector(".settings-close");
 const settingsOpen = document.querySelector(".settings-open");
 const pokemonChooser = document.querySelector("#pokemon-chooser");
 const gameChooser = document.querySelector("#game-chooser");
+const shinyRateChooser = document.querySelector("#shiny-rate");
 
 let count = 0;
 let pokemon = 181;
+let shinyRate = 1/4096;
 
 incrementButton.addEventListener("click", function() {
     counter.innerText = ++count;
@@ -88,6 +90,9 @@ settingsClose.addEventListener("click", function() {
     default:
 	sprite.src = `sprites/sprites/pokemon/versions/generation-v/black-white/animated/shiny/${pokemon}.gif`;
 	break;
+    }
+    if (shinyRateChooser.value.split("/").length == 2) {
+	shinyRate = shinyRateChooser.value.split("/")[0] / shinyRateChooser.value.split("/")[1];
     }
     settings.close();
 })
