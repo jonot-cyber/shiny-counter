@@ -55,6 +55,7 @@ const settingsOpen = document.querySelector(".settings-open");
 const pokemonChooser = document.querySelector("#pokemon-chooser");
 const gameChooser = document.querySelector("#game-chooser");
 const shinyRateChooser = document.querySelector("#shiny-rate");
+const resetButton = document.querySelector(".count-reset");
 
 let count = 0;
 let pokemon = 181;
@@ -78,4 +79,10 @@ settingsClose.addEventListener("click", function() {
 
 settingsOpen.addEventListener("click", function() {
     settings.showModal();
+})
+
+resetButton.addEventListener("click", function() {
+    count = 0;
+    counter.innerText = 0;
+    settings.close();
 })
