@@ -3,25 +3,38 @@ body {
 }
 
 .main {
-    background-color: #fff;
+    background-color: white;
     display: flex;
     flex-direction: column;
     width: 100vw;
     height: 100vh;
 }
 
-.wastespace {
-    height: 40vh;
-}
-
 .counter {
     text-align: center;
-    font-size: 10em;
+    font-size: 20vh;
+    line-height: 0.5em;
+    flex: 1;
     font-family: 'Inter', sans-serif; /* Inter is a nice font, so use if available */
 }
 
 .incr {
+    background-color: white;
     width: 100vw;
     border: none;
-    font-size: 6em;
+    flex: 1;
+    font-size: 22vw;
+}
+
+.sprite-holder {
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    flex: 1;
+}
+
+.sprite {
+    height: calc(96px*3);
+    image-rendering: crisp-edges;
+    filter: drop-shadow(3px 3px 3px #00005555);
 }
