@@ -34,7 +34,7 @@ incrementButton.addEventListener("click", function() {
 settingsClose.addEventListener("click", function() {
     pokemon = pokemonChooser.value;
     let game = gameChooser.value;
-    if (pokemon > gameLimits[game]) {
+    if (pokemon > gameLimits[game] || pokemon < 1) {
 	alert("That Pokémon is not in that game!");
 	pokemon = 1;
     }
