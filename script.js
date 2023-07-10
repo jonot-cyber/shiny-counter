@@ -13,6 +13,36 @@ const gameLimits = {
     "xy": 721,
     "oras": 721,
     "sm": 809
+};
+
+// The non-shared parts of the paths for each game.
+const gamePaths = {
+    "au": "ii/gold",
+    "ag": "ii/silver",
+    "cr": "ii/crystal",
+    "rs": "iii/ruby-sapphire",
+    "frlg": "iii/firered-leafgreen",
+    "em": "iii/emerald",
+    "dp": "iv/diamond-pearl",
+    "hgss": "iv/heartgold-soulsilver",
+    "pt": "iv/platinum",
+    "bw": "v/black-white/animated",
+    "xy": "vi/x-y",
+    "oras": "vi/omegaruby-alphasapphire",
+    "sm": "vii/ultra-sun-ultra-moon",
+};
+
+function getSprite(number, game) {
+    if (number > gameLimits[game] || number < 1) {
+	alert("That Pokémon is not in that game!");
+	number = 1;
+    }
+    // The sprites I'm using don't provide gen 2+3 sprites for firered/leafgreen, so use emerald as a fallback
+    // The reason this isn't in the game limits table is because those pokemon are present in the game.
+    if (game == "frlg" && pokemon > 151) {
+	game = "em";
+    }
+    return `sprites/sprites/pokemon/versions/generation-${gamePaths[game]}/shiny/${pokemon}.${game == "bw" ? "gif" : "png"}`;
 }
 
 const incrementButton = document.querySelector(".incr");
@@ -28,6 +58,7 @@ const shinyRateChooser = document.querySelector("#shiny-rate");
 
 let count = 0;
 let pokemon = 181;
+let game = "bw";
 let shinyRate = 1/4096;
 
 incrementButton.addEventListener("click", function() {
@@ -36,63 +67,11 @@ incrementButton.addEventListener("click", function() {
 
 settingsClose.addEventListener("click", function() {
     pokemon = pokemonChooser.value;
-    let game = gameChooser.value;
-    if (pokemon > gameLimits[game] || pokemon < 1) {
-	alert("That Pokémon is not in that game!");
-	pokemon = 1;
-    }
-    switch (game) {
-    case "au": // Gold
-	sprite.src = `sprites/sprites/pokemon/versions/generation-ii/gold/shiny/${pokemon}.png`;
-	break;
-    case "ag": // Silver
-	sprite.src = `sprites/sprites/pokemon/versions/generation-ii/silver/shiny/${pokemon}.png`;
-	break;
-    case "cr": // Crystal
-	sprite.src = `sprites/sprites/pokemon/versions/generation-ii/crystal/shiny/${pokemon}.png`;
-	break;
-    case "rs": // Ruby/Sapphire
-	sprite.src = `sprites/sprites/pokemon/versions/generation-iii/ruby-sapphire/shiny/${pokemon}.png`;
-	break;
-    case "frlg": // FireRed/LeafGreen
-	// The sprites I'm using don't provide gen 2+3 sprites for firered/leafgreen, so use emerald as a fallback
-	// The reason this isn't in the game limits table is because those pokemon are present in the game.
-	if (pokemon > 151) {
-	    sprite = `sprites/sprites/pokemon/versions/generation-iii/emerald/shiny/${pokemon}.png`;
-	} else {
-	    sprite.src = `sprites/sprites/pokemon/versions/generation-iii/firered-leafgreen/shiny/${pokemon}.png`;
-	}
-	break;
-    case "em": // Emerald
-	sprite.src = `sprites/sprites/pokemon/versions/generation-iii/emerald/shiny/${pokemon}.png`;
-	break;
-    case "dp": // Diamond/Pearl
-	sprite.src = `sprites/sprites/pokemon/versions/generation-iv/diamond-pearl/shiny/${pokemon}.png`;
-	break;
-    case "hgss": // HeartGold/SoulSilver
-	sprite.src = `sprites/sprites/pokemon/versions/generation-iv/heartgold-soulsilver/shiny/${pokemon}.png`;
-	break;
-    case "pt": // Platinum
-	sprite.src = `sprites/sprites/pokemon/versions/generation-iv/platinum/shiny/${pokemon}.png`;
-	break;
-    case "bw": // Black/White
-	sprite.src = `sprites/sprites/pokemon/versions/generation-v/black-white/animated/shiny/${pokemon}.gif`;
-	break;
-    case "xy": // X/Y
-	sprite.src = `sprites/sprites/pokemon/versions/generation-vi/x-y/shiny/${pokemon}.png`;
-	break;
-    case "oras": // Omega Ruby/Alpha Sapphire
-	sprite.src = `sprites/sprites/pokemon/versions/generation-vi/omegaruby-alphasapphire/shiny/${pokemon}.png`;
-	break;
-    case "sm": // Sun/Moon
-	sprite.src = `sprites/sprites/pokemon/versions/generation-vii/ultra-sun-ultra-moon/shiny/${pokemon}.png`;
-	break;
-    default:
-	sprite.src = `sprites/sprites/pokemon/versions/generation-v/black-white/animated/shiny/${pokemon}.gif`;
-	break;
-    }
-    if (shinyRateChooser.value.split("/").length == 2) {
-	shinyRate = shinyRateChooser.value.split("/")[0] / shinyRateChooser.value.split("/")[1];
+    game = gameChooser.value;
+    sprite.src = getSprite(pokemon, game);
+    let rateParts = shinyRateChooser.value.split("/");
+    if (rateParts.length == 2) {
+	shinyRate = rateParts[0] / rateParts[1];
     }
     settings.close();
 })
