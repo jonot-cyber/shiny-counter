@@ -11,7 +11,8 @@ const gameLimits = {
     "pt": 493,
     "bw": 649,
     "xy": 721,
-    "oras": 721
+    "oras": 721,
+    "sm": 809
 }
 
 const incrementButton = document.querySelector(".incr");
