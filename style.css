@@ -45,12 +45,11 @@ body {
 
 .settings {
     position: absolute;
-    top: 5vw;
-    left: 0;
+    top: 2.5vw;
+    left: 2.5vw;
+    bottom: 2.5vw;
+    right: 2.5vw;
     background-color: white;
-    height: calc(100vh - 10vw);
-    width: 90vw;
-    place-self: center;
     box-shadow: 0 0 0.5em 0.5em #00000022;
     font-family: 'Inter', sans-serif;
     padding: 1em;
@@ -59,4 +58,12 @@ body {
 
 .settings::backdrop {
     background-color: #00000055;
+}
+
+.settings-open {
+    border: none;
+    background-color: #00000000;
+    position: absolute;
+    top: 1em;
+    right: 1em;
 }
