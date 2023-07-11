@@ -57,14 +57,19 @@ const gameChooser = document.querySelector("#game-chooser");
 const shinyRateChooser = document.querySelector("#shiny-rate");
 const resetButton = document.querySelector(".count-reset");
 
-let count = 0;
-let pokemon = 181;
-let game = "bw";
-let shinyRate = 1/4096;
+let count = localStorage.getItem("count") ?? 0;
+counter.innerText = count;
+let pokemon = localStorage.getItem("pokemon") ?? 181;
+let game = localStorage.getItem("game") ?? "bw";
+sprite.src = getSprite(pokemon, game);
+let shinyRate = localStorage.getItem("rate") ?? 1/4096;
+let prob = 1-Math.exp(count*Math.log(1-shinyRate));
+document.querySelector(".probability-number").innerText = (100 * prob).toFixed(2);
 
 incrementButton.addEventListener("click", function() {
     counter.innerText = ++count;
-    let prob = 1-Math.exp(count*Math.log(1-shinyRate));
+    localStorage.setItem("count", count);
+    prob = 1-Math.exp(count*Math.log(1-shinyRate));
     document.querySelector(".probability-number").innerText = (100 * prob).toFixed(2);
 })
 
@@ -76,6 +81,9 @@ settingsClose.addEventListener("click", function() {
     if (rateParts.length == 2) {
 	shinyRate = rateParts[0] / rateParts[1];
     }
+    localStorage.setItem("pokemon", pokemon);
+    localStorage.setItem("game", game);
+    localStorage.setItem("rate", shinyRate);
     settings.close();
 })
 
@@ -85,6 +93,7 @@ settingsOpen.addEventListener("click", function() {
 
 resetButton.addEventListener("click", function() {
     count = 0;
+    localStorage.setItem("count", count);
     counter.innerText = 0;
     settings.close();
 })
